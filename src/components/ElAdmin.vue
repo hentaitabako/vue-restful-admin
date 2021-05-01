@@ -4,7 +4,9 @@
     </div>
     <el-table :data="tableData" style="width: 100%">
         <template v-for="item in columns" :key="item.prop">
-            <el-table-column :prop="item.prop" :label="item.label" :width="item.width"></el-table-column>
+            <el-table-column :prop="item.prop" :label="item.label" :width="item.width">
+                <template #default="scope">{{ filterItem(scope.row, item) }}</template>
+            </el-table-column>
         </template>
         <el-table-column label="操作">
             <template #default="scope">
@@ -62,6 +64,17 @@ export default {
         }
     },
     methods: {
+        filterItem(row, item) {
+            const value = row[item.prop]
+            switch (item.type) {
+                case 'select':
+                    return value.label;
+                case 'time':
+                    return this.$dayjs(value).format(item.format ?? 'YYYY-MM-DD HH:mm')
+                default:
+                    return value
+            }
+        },
         async getTableData() {
             this.tableData = await this.dataServer.getAll()
         },
@@ -69,10 +82,10 @@ export default {
             this.curRow = null;
             this.show = true;
         },
-        editItem({ row }) {
+        editItem(item) {
+            const { row } = item
             this.curRow = row
             this.show = true;
-            console.log(row);
         },
         deleteItem({ row }) {
             this.$confirm('确定要删除吗').then(async () => {
