@@ -14,13 +14,13 @@ restful 接口根据不同的请求方式可以快速完成资源的增删查改
 
     ```js
     const dataServer = (url) => ({
-      getAll: () => {
-        return [];
-      },
-      get: (id) => {},
-      create: (data) => {},
-      update: (data) => {},
-      delete: (id) => {},
+        getAll: ({ pageSize, pageNo }) => {
+            return [];
+        },
+        get: (id) => {},
+        create: (data) => {},
+        update: (data) => {},
+        delete: (id) => {}
     });
     ```
 
@@ -28,33 +28,33 @@ restful 接口根据不同的请求方式可以快速完成资源的增删查改
 
     ```js
     columns: [
-      { prop: "author", label: "姓名", type: "input" },
-      { prop: "title", label: "标题", type: "input" },
-      {
-        prop: "create_at",
-        label: "创建时间",
-        type: "time",
-        format: "YYYY-MM-DD HH:mm",
-      },
-      {
-        prop: "gender",
-        label: "性别",
-        type: "select",
-        options: [
-          { label: "男", value: 1 },
-          { label: "女", value: 2 },
-        ],
-      },
+        { prop: 'author', label: '姓名', type: 'input' },
+        { prop: 'title', label: '标题', type: 'input' },
+        {
+            prop: 'create_at',
+            label: '创建时间',
+            type: 'time',
+            format: 'YYYY-MM-DD HH:mm'
+        },
+        {
+            prop: 'gender',
+            label: '性别',
+            type: 'select',
+            options: [
+                { label: '男', value: 1 },
+                { label: '女', value: 2 }
+            ]
+        }
     ];
     ```
 
 3.  效果图
 
-    ![表格](./img/table.PNG "根据columns渲染的表格")
-    ![编辑于新增](./img/edit.PNG "根据columns渲染的表格")
+    ![表格](./img/table.PNG '根据columns渲染的表格')
+    ![编辑于新增](./img/edit.PNG '根据columns渲染的表格')
 
 ## TODO
 
-- [ ] 添加翻页功能
-- [ ] 完善表格显示
-- [ ] npm 包
+-   [x] 添加翻页功能
+-   [ ] 完善表格显示
+-   [ ] npm 包
